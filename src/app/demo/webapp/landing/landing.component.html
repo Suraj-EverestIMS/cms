@@ -1,0 +1,35 @@
+<div id="hero">
+    <div class="container">
+        <div>
+            <h1 class="hero-title">Your Secura <br> Gateway to Simple, <br> <span [innerHTML]="'{'"></span><b>Smart Payements</b><span [innerHTML]="'}'"></span></h1>
+            <div class="btn-group">
+                <button [routerLink]="'/contacts'" pButton pRipple label="Get Started" icon="pi pi-angle-right" class="mr-2 get-started mb-2"></button>
+                <button [routerLink]="'/contacts'" pButton pRipple label="Request a demo" icon="pi pi-angle-right" class="mr-2 request-demo mb-2"></button>
+            </div>
+            <p class="hero-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed, perferendis! Ipsum ea eveniet dolor, itaque nostrum, iste distinctio voluptate ex mollitia quidem est error in dolorum harum debitis temporibus facere.</p>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+
+<div class="feature-highlights tb-spacing">
+    <div class="container">
+        <div style="position: relative;" *ngFor="let feature of features; let i = index" class="container tb-spacing">
+            <div>
+                <!-- The H2 title is only in the first section and controlled dynamically -->
+                <h2 *ngIf="i === 0 && isTitleVisible" class="setion-title-s" style="position: absolute; top: 0;">Discover the Future of Digital Payments</h2>
+        
+                <div class="feature-info" #featureInfo [attr.data-index]="i">
+                    <h2>{{ feature.title }}</h2>
+                    <h4>{{ feature.subtitle }}</h4>
+                    <p>{{ feature.description }}</p>
+                </div>
+            </div>
+            <div class="features-img">
+                <img [src]="feature.image" alt="Payment Feature">
+            </div>
+        </div>
+    </div>
+</div>

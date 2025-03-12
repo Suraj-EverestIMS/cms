@@ -1,0 +1,23 @@
+<div class="layout-topbar" [class.scrolled]="isScrolled">
+    <div class="container">
+        <a class="layout-topbar-logo" routerLink="">
+            <img src="assets/layout/images/wowpe-logo.svg" alt="logo">
+        </a>
+    
+        <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+            <i class="pi pi-ellipsis-v"></i>
+        </button>
+    
+        <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+            
+            <ng-container *ngFor="let group of model">
+                <ng-container *ngFor="let item of group.items">
+                    <button class="p-link layout-topbar-button" [routerLink]="item.routerLink">
+                        <span>{{ item.label }}</span>
+                        <i class="pi" [ngClass]="getIcon(item.label)"></i>
+                    </button>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>

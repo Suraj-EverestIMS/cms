@@ -1,0 +1,131 @@
+<div class="grid container">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedContacts()" [disabled]="!selectedContacts || !selectedContacts.length"></button>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+
+            <p-table #dt  [value]="contacts"  [columns]="cols" responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedContacts" selectionMode="multiple" [rowHover]="true" dataKey="id" [globalFilterFields]="['id', 'name', 'contact_number', 'upi_id', 'date_created', 'last_transaction', 'total_transactions']" >
+
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Manage Contacts</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="contact_number">Contact Number <p-sortIcon field="contact_number"></p-sortIcon></th>
+                        <th pSortableColumn="upi_id">UPI ID <p-sortIcon field="upi_id"></p-sortIcon></th>
+                        <th pSortableColumn="date_created">Date created <p-sortIcon field="date_created"></p-sortIcon></th>
+                        <th pSortableColumn="last_transaction">Last Trasaction <p-sortIcon field="last_transaction"></p-sortIcon></th>
+                        <th pSortableColumn="total_transactions">Total Trasaction <p-sortIcon field="total_transactions"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-contact>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="contact"></p-tableCheckbox>
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">ID</span>
+                            {{contact.id}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Name</span>
+                            {{contact.name}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Contact Number</span>
+                            {{contact.contact_number}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">UPI ID</span>
+                            {{contact.upi_id}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Date created</span>
+                            {{contact.date_created | date:'dd/MM/yyyy'}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Last Trasaction</span>
+                            {{contact.last_transaction | date:'dd/MM/yyyy'}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Total Trasactions</span>
+                            {{contact.total_transactions}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editContact(contact)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteContact(contact)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog [(visible)]="contactDialog" [style]="{width: '450px'}" header="Contact Details" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="name">Name</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="contact.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !contact.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !contact.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="contact_number">Contact number</label>
+                    <input type="text" pInputText id="contact_number" [(ngModel)]="contact.contact_number" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !contact.contact_number}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !contact.contact_number">Contact Number is required.</small>
+                </div>
+                <div class="field">
+                    <label for="upi_id">UPI ID</label>
+                    <input type="text" pInputText id="upi_id" [(ngModel)]="contact.upi_id" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !contact.upi_id}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !contact.upi_id">upi_id is required.</small>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveContact()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="deleteContactDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="contact">Are you sure you want to delete <b>{{contact.name}}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteContactDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="deleteContactsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>Are you sure you want to delete selected contacts?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteContactsDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

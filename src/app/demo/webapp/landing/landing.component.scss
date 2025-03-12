@@ -1,0 +1,128 @@
+#hero {
+    background: url(./../../../../assets/demo/images/hero.svg);
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 60%;
+    height: 100vh;
+    
+    div.container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        &>div {
+            width: 50%;
+        }
+        &>div:last-child {
+            width: 50%;
+        }
+    }
+}
+
+.p-button {
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+.get-started {
+    background-color: #3162BE;
+
+    &:hover {
+        background-color: #030318;
+    }
+}
+.request-demo {
+    background-color: transparent;
+    color: var(--primary-color);
+    
+    &:hover {
+        background-color: transparent;
+        color: var(--primary-color-2);
+    }
+}
+h1 {
+    margin-bottom: 8rem;
+    span {
+        opacity: 0.6;
+    }
+
+    b {
+        color: #3162BE;
+    }
+}
+
+.hero-description {
+    width: 80%;
+}
+
+.btn-group {
+    margin-bottom: 2rem;
+}
+
+.feature-highlights {
+    background: url(./../../../../assets/demo/images/bg-lines.svg), #fff;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    .setion-title-s {
+        font-size: 1.25rem;
+        color: #3162BE;
+        margin-bottom: 3.5rem;
+    }
+
+    .container {
+
+        &>.container:nth-child(2) {
+            flex-direction: row-reverse;
+        }
+        
+        &>div {
+            // padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            // height: 100vh;
+            
+            &>div:first-child {
+                width: 80%;
+                // border: 1px solid #EFEDF2;
+                border-top: 0;
+                border-bottom: 0;
+            }
+            &>div:last-child {
+                width: 80%;
+            }
+        }
+
+
+        .features-img {
+            img {
+                max-width: 600px;
+                margin: auto;
+                top: 20%;
+                right: 20%;
+                // visibility: hidden;
+                // opacity: 0;
+                transition: all 0.3s;
+                // position: fixed;
+                
+                // &.floating {
+                //     visibility: visible;
+                //     opacity: 1;
+                // }
+            }
+        }
+
+        .feature-info {
+            h2 {
+                font-size: 5rem;
+                font-weight: 700;
+            }
+        }
+
+        .payouts {
+            margin: 20rem 0;
+        }
+    }
+}
