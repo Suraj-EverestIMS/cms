@@ -15,7 +15,7 @@ import { RippleModule } from 'primeng/ripple';
     CommonModule,
     LandingRoutingModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
   ]
 })
 export class LandingModule { }

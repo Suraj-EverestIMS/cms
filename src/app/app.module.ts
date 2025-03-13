@@ -5,14 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { ContactService } from './demo/service/contact.service';
-import { CountryService } from './demo/service/country.service';
-import { CustomerService } from './demo/service/customer.service';
-import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
-import { PhotoService } from './demo/service/photo.service';
 
-//New TODO mydasboard
 // import { MydashboardComponent } from './demo/components/mydashboard/mydashboard.component';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
@@ -31,7 +26,7 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
     declarations: [
         AppComponent,
-        NotfoundComponent
+        NotfoundComponent,
     ],
     imports: [
         AppRoutingModule,
@@ -52,8 +47,8 @@ import { FormsModule } from '@angular/forms';
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ContactService
+        IconService, NodeService,
+        ContactService
     ],
     bootstrap: [AppComponent]
 })
