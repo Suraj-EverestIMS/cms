@@ -1,5 +1,6 @@
 .layout-topbar {
     z-index: 997;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
@@ -7,8 +8,8 @@
     
     &.scrolled {
         position: fixed;
-        background-color: #00040f;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        background-color: #00040fbd;
+        backdrop-filter: blur(6px);
     }
     
     .container {
@@ -36,6 +37,7 @@
         }
     
         .layout-topbar-button {
+            color: #fff;
             display: inline-flex;
             justify-content: center;
             align-items: center;
